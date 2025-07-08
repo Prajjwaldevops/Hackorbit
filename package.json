@@ -17,8 +17,8 @@
     "@neondatabase/serverless": "^0.9.4",
     "@privy-io/react-auth": "1.65.0",
     "@tabler/icons-react": "^3.7.0",
-    "@thirdweb-dev/react": "^3",
-    "@thirdweb-dev/sdk": "^3",
+    "@thirdweb-dev/react": "^3.16.5",
+    "@thirdweb-dev/sdk": "^3.10.67",
     "appwrite": "14.0.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.32.1",
@@ -36,14 +36,14 @@
     "remark-math": "^6.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^2",
+    "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.13",
-    "drizzle-kit": "^0.23.0",
+    "drizzle-kit": "^0.31.4",
     "postcss": "^8.4.19",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.2.4",
-    "vite": "^3"
+    "vite": "^7.0.3"
   },
   "main": "index.js",
   "license": "MIT"
