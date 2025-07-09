@@ -228,3 +228,4 @@ function SingleRecordDetails() {
 }
 
 export default SingleRecordDetails;
+
