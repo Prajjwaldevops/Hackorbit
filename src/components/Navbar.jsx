@@ -69,6 +69,12 @@ const Navbar = () => {
       <div className="hidden flex-row justify-end gap-2 sm:flex">
         <CustomButton
           btnType="button"
+          title="Chatbot"
+          styles="bg-[#ffa500] hover:bg-[#ffb733] mr-2"
+          handleClick={() => alert('GEMINI API BILLING FAILURE')}
+        />
+        <CustomButton
+          btnType="button"
           title={authenticated ? "Log Out" : "Log In"}
           styles={authenticated ? "bg-[#1dc071]" : "bg-[#8c6dfd]"}
           handleClick={handleLoginLogout}
