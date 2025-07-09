@@ -34,6 +34,7 @@ const Modal = ({ title, children, isOpen, onClose, onAction, actionLabel }) => {
       </div>
     </div>
   );
+//.
 };
 
 export default Modal;
