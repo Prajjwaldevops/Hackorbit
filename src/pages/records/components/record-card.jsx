@@ -22,3 +22,4 @@ const RecordCard = ({ record, onNavigate }) => {
 };
 
 export default RecordCard;
+
