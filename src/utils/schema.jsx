@@ -30,3 +30,4 @@ export const Records = pgTable("records", {
   kanbanRecords: varchar("kanban_records").notNull(),
   createdBy: varchar("created_by").notNull(),
 });
+
