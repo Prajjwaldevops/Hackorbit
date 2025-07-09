@@ -1,33 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context";
 import { usePrivy } from "@privy-io/react-auth";
 
 const Onboarding = () => {
-  const { createUser } = useStateContext();
+  const { createUser, currentUser, fetchUserByEmail } = useStateContext();
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { user } = usePrivy();
 
-  console.log(user);
+  useEffect(() => {
+    // If user is already onboarded, redirect to profile
+    if (currentUser) {
+      navigate("/profile");
+    }
+  }, [currentUser, navigate]);
+
   const handleOnboarding = async (e) => {
     e.preventDefault();
-    const userData = {
-      username,
-      age: parseInt(age, 10),
-      location,
-      folders: [],
-      treatmentCounts: 0,
-      folder: [],
-      createdBy: user.email.address,
-    };
+    setError("");
+    setIsLoading(true);
 
-    console.log(userData);
-    const newUser = await createUser(userData);
-    if (newUser) {
+    try {
+      if (!user?.email?.address) {
+        throw new Error("Please log in first");
+      }
+
+      const userData = {
+        username: username.trim(),
+        age: parseInt(age, 10),
+        location: location.trim(),
+        folders: [],
+        treatmentCounts: 0,
+        folder: [],
+        createdBy: user.email.address,
+      };
+
+      // Validate data
+      if (!userData.username) {
+        throw new Error("Username is required");
+      }
+      if (isNaN(userData.age) || userData.age <= 0) {
+        throw new Error("Please enter a valid age");
+      }
+      if (!userData.location) {
+        throw new Error("Location is required");
+      }
+
+      const newUser = await createUser(userData);
+      if (!newUser) {
+        throw new Error("Failed to create user. Please try again.");
+      }
+
+      // Fetch the newly created user
+      await fetchUserByEmail(user.email.address);
       navigate("/profile");
+    } catch (err) {
+      console.error("Onboarding error:", err);
+      setError(err.message || "Failed to complete onboarding. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,6 +74,11 @@ const Onboarding = () => {
         <h2 className="mb-6 text-center text-2xl font-bold text-white">
           Welcome! Let's get started
         </h2>
+        {error && (
+          <div className="mb-4 rounded-lg bg-red-900/50 p-4">
+            <p className="text-sm text-red-200">{error}</p>
+          </div>
+        )}
         <form onSubmit={handleOnboarding}>
           <div className="mb-4">
             <label
@@ -53,6 +94,7 @@ const Onboarding = () => {
               onChange={(e) => setUsername(e.target.value)}
               required
               className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus:border-blue-600 focus:outline-none"
+              disabled={isLoading}
             />
           </div>
           <div className="mb-4">
@@ -65,7 +107,9 @@ const Onboarding = () => {
               value={age}
               onChange={(e) => setAge(e.target.value)}
               required
+              min="1"
               className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus:border-blue-600 focus:outline-none"
+              disabled={isLoading}
             />
           </div>
           <div className="mb-4">
@@ -82,13 +126,15 @@ const Onboarding = () => {
               onChange={(e) => setLocation(e.target.value)}
               required
               className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus:border-blue-600 focus:outline-none"
+              disabled={isLoading}
             />
           </div>
           <button
             type="submit"
-            className="mt-4 w-full rounded-lg bg-green-600 py-3 font-semibold text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="mt-4 w-full rounded-lg bg-green-600 py-3 font-semibold text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50"
+            disabled={isLoading}
           >
-            Get Started
+            {isLoading ? "Creating Account..." : "Get Started"}
           </button>
         </form>
       </div>

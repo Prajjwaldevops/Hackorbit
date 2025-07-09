@@ -71,16 +71,51 @@ export const StateContextProvider = ({ children }) => {
   // Function to create a new record
   const createRecord = useCallback(async (recordData) => {
     try {
+      // Validate required fields
+      const requiredFields = ['userId', 'recordName', 'createdBy'];
+      for (const field of requiredFields) {
+        if (!recordData[field]) {
+          throw new Error(`${field} is required`);
+        }
+      }
+
+      // Ensure analysisResult and kanbanRecords are strings
+      const dataToInsert = {
+        ...recordData,
+        analysisResult: recordData.analysisResult || '',
+        kanbanRecords: recordData.kanbanRecords || '',
+      };
+
+      // Check if record name already exists for this user
+      const existingRecords = await db
+        .select()
+        .from(Records)
+        .where(eq(Records.userId, recordData.userId))
+        .where(eq(Records.recordName, recordData.recordName))
+        .execute();
+
+      if (existingRecords.length > 0) {
+        throw new Error('A record with this name already exists');
+      }
+
+      // Create the new record
       const newRecord = await db
         .insert(Records)
-        .values(recordData)
-        .returning({ id: Records.id })
+        .values(dataToInsert)
+        .returning()
         .execute();
-      setRecords((prevRecords) => [...prevRecords, newRecord[0]]);
+
+      if (!newRecord || newRecord.length === 0) {
+        throw new Error('Failed to create record');
+      }
+
+      // Update the records state with the new record
+      setRecords(prevRecords => [...prevRecords, newRecord[0]]);
+      
       return newRecord[0];
     } catch (error) {
-      console.error("Error creating record:", error);
-      return null;
+      console.error('Error creating record:', error);
+      throw error; // Re-throw the error to be handled by the component
     }
   }, []);
 
