@@ -71,7 +71,7 @@ const Navbar = () => {
           btnType="button"
           title="Chatbot"
           styles="bg-[#ffa500] hover:bg-[#ffb733] mr-2"
-          handleClick={() => alert('GEMINI API BILLING FAILURE')}
+          handleClick={() => alert('GEMINI API BILLING FAILURE ERROR')}
         />
         <CustomButton
           btnType="button"
