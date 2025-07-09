@@ -22,3 +22,4 @@ const RecordDetailsHeader = ({ recordName }) => {
 };
 
 export default RecordDetailsHeader;
+
