@@ -22,3 +22,4 @@ const LoadingSpinner = ({ size = 8, color = "green-500" }) => {
 };
 
 export default LoadingSpinner;
+
