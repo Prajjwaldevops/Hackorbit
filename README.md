@@ -1,3 +1,11 @@
 HACORBIT
 
-No Major Update integrating AI integration s at 6.00pm
+https://hackorbit-pi.vercel.app/
+DEPLOYED
+
+TEAM - CODEFATHER
+MEMBERS
+PRAJJWAL JHA (PRAJJWALX9@GMAIL.COM}
+LUCKY CHATERJEE
+SAKET DUBEY
+LUCKY KUMAR
