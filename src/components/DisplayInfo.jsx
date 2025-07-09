@@ -147,3 +147,4 @@ const DisplayInfo = () => {
 };
 
 export default DisplayInfo;
+
