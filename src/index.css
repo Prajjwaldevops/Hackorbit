@@ -4,7 +4,111 @@
 @tailwind utilities;
 
 body {
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
+  background: #181925;
+  color: #f1f1f7;
+  min-height: 100vh;
+  letter-spacing: 0.01em;
+  transition: background 0.3s, color 0.3s;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #23243a;
+  border-radius: 8px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #f8fafc;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: #7dd3fc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #38bdf8;
+}
+
+.card, .glass-card {
+  background: rgba(36, 37, 60, 0.85);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.25);
+  border-radius: 18px;
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.glass-card {
+  background: linear-gradient(120deg, rgba(36,37,60,0.92) 60%, rgba(60,60,80,0.7) 100%);
+}
+
+button, .btn {
+  background: linear-gradient(90deg, #23243a 60%, #3b82f6 100%);
+  color: #f1f1f7;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7em 1.4em;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+button:hover, .btn:hover {
+  background: linear-gradient(90deg, #3b82f6 40%, #23243a 100%);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px 0 rgba(59,130,246,0.15);
+}
+button:focus, .btn:focus {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
+input, textarea, select {
+  background: #23243a;
+  color: #f1f1f7;
+  border: 1px solid #30324a;
+  border-radius: 8px;
+  padding: 0.6em 1em;
+  margin-bottom: 0.7em;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: #7dd3fc;
+  box-shadow: 0 0 0 2px #7dd3fc44;
+  outline: none;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #23243a;
+  margin: 1.5em 0;
+}
+
+/* Glassmorphism Gradient for hero/headers */
+.highend-gradient {
+  background: linear-gradient(120deg, #23243a 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Subtle glowing effect for focus */
+:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
+/* Subtle card hover */
+.card:hover, .glass-card:hover {
+  box-shadow: 0 6px 24px 0 rgba(59,130,246,0.13);
+  border-color: #7dd3fc33;
 }
 .linear-gradient {
   background: linear-gradient(
