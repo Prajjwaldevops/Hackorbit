@@ -21,7 +21,7 @@
     "@thirdweb-dev/sdk": "^3.10.67",
     "appwrite": "14.0.1",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.32.1",
+    "drizzle-orm": "^0.44.2",
     "ethers": "^5.7.2",
     "markdown-to-jsx": "^7.4.7",
     "openai": "^4.52.0",
